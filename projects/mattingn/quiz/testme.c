@@ -1,18 +1,47 @@
+/****************************************
+ * Name: Nikita Mattingly
+ * Date: May 11, 2019
+ * File: testme.c
+ * Description: CS362 Random Test Quiz
+ * *************************************/
+
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
 #include<time.h>
 
+/*******************************************************************************
+ * Function Name: char inputChar()
+ * Parameters: None
+ * Description: A random function generates ASCII numbers from 32 to 125 and
+ * stores the result into the testRandom variable. 
+ * Return: testRandom
+ * *****************************************************************************/
 char inputChar()
 {
-    // TODO: rewrite this function
-    return ' ';
+  char testRandom = rand() % (125 + 1 - 32) + 32;
+   
+   return testRandom;
 }
 
+/*******************************************************************************
+ * Function Name: char *inputString()
+ * Parameters: None
+ * Description: A static character array is created for 'reset\0'. Using ASCII
+ * code, the array will fill up by using a for loop with random ASCII code from 
+ * 0 to 116 ('t').
+ * Return: array
+ * *****************************************************************************/
 char *inputString()
 {
-    // TODO: rewrite this function
-    return "";
+   static char array[6];
+   int k;
+   for (k = 0; k < 5; k++)
+   {
+     array[k] = (rand()%16) + 101;
+   }
+
+   return array;
 }
 
 void testme()
