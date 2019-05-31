@@ -151,8 +151,90 @@ protected void setUp() {
        System.out.println("");
 
    }
-  
-   public void testIsValidScheme() {
+   
+    public void testSchemePartitions()
+    {
+        UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+        String testUrl;
+        String baseURL = "www.google.com";
+
+
+        System.out.println("BEGINNING Positive Scheme Tests");
+        fail = false;
+
+        String[] validScheme = {"https://", "ftp://", "h3t://"};
+        for (int i = 0; i < validScheme.length; i++ ) {
+            testUrl =  validScheme[i] + baseURL;
+            group34_assertTrue(testUrl, urlVal.isValid(testUrl));
+        }
+
+        if(fail)
+            System.out.println("Positive Scheme Partition Tests FAILED");
+        else
+            System.out.println("Positive Scheme Partition Tests PASSED");
+        System.out.println("");
+
+
+        System.out.println("BEGINNING Negative Scheme Tests");
+        fail = false;
+
+        String[] inValidScheme = {"://","3ht://", "http:", "http/", " "};
+
+        for (int i = 0; i < inValidScheme.length ; i++)
+        {
+            testUrl = inValidScheme[i] +baseURL;
+            group34_assertFalse(testUrl, urlVal.isValid(testUrl));
+
+        }
+        if(fail)
+            System.out.println("Negative Scheme Partition Tests FAILED");
+        else
+            System.out.println("Negative Scheme Partition Tests PASSED");
+        System.out.println("");
+    }
+
+    public void testPortsPartitions()
+    {
+
+        UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+        String testUrl;
+        String baseURL = "https://www.google.com";
+
+
+        System.out.println("BEGINNING Positive Port Tests");
+        fail = false;
+
+        String[] validPort = {":80", ":65535", ":0", ""};
+        for (int i = 0; i < validPort.length; i++ ) {
+            testUrl =   baseURL + validPort[i];
+            group34_assertTrue(testUrl, urlVal.isValid(testUrl));
+        }
+
+        if(fail)
+            System.out.println("Positive Port Partition Tests FAILED");
+        else
+            System.out.println("Positive Port Partition Tests PASSED");
+        System.out.println("");
+
+        System.out.println("BEGINNING Negative Port Tests");
+        fail = false;
+
+        String[] inValidPort = {":65536",":-1", ":65636", ":999999999999999999", ":65a"};
+
+        for (int i = 0; i < inValidPort.length; i++)
+        {
+            testUrl = baseURL + inValidPort[i];
+            group34_assertFalse(testUrl, urlVal.isValid(testUrl));
+
+        }
+        if(fail)
+            System.out.println("Negative Port Partition Tests FAILED");
+        else
+            System.out.println("Negative Port Partition Tests PASSED");
+        System.out.println("");
+    }
+
+    public void testIsValidScheme() {
       if (printStatus) {
          System.out.print("\n testIsValidScheme() ");
       }
