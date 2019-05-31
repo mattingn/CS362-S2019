@@ -48,7 +48,106 @@ protected void setUp() {
 
         testIsValid(testUrlPartsOptions, options);
    }
+   private static boolean fail = false;
+   private static int random_fail_counter;
+   static public void group34_assertFalse(String url, boolean return_isValid) {
+       if(return_isValid == true) {
+           System.out.println("Error - URL should be invalid: " + url);
+           fail = true;
+           random_fail_counter++; // only used for random tests
+       }
+   }
+   static public void group34_assertTrue(String url, boolean return_isValid) {
+       if(return_isValid == false) {
+           System.out.println("Error - URL should be valid: " + url);
+           fail = true;
+           random_fail_counter++; // only used for random tests
+       }
+   }
 
+   public void testAuthorityPartitions()
+   {
+       System.out.println("BEGINNING Positive Authority Tests"); 
+       fail = false; 
+       UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+       String testUrl;
+       String baseURL = "http://";
+       String[] validAuthority = {"www.google.com", "www.google.co.in", "255.255.255.255"};
+       for (int i = 0; i < validAuthority.length; i++ ) {
+           testUrl =  baseURL + validAuthority[i];
+           //System.out.println(testUrl);
+           //System.out.println(urlVal.isValid(testUrl));
+           assertTrue(urlVal.isValid(testUrl));
+           group34_assertTrue(testUrl, urlVal.isValid(testUrl));
+           
+       }
+        if(fail == true)
+           System.out.println("Postive Authority Tests FAILED");
+       else
+           System.out.println("Positive Authority Tests PASSED");
+       System.out.println("");
+       
+       System.out.println("BEGINNING Negative Authority Tests"); 
+       String[] inValidAuthority = {"www.google.ckosa","zzz", "1.2.3.4.5"};
+       fail = false; 
+       for (int i = 0; i < inValidAuthority.length ; i++)
+       {
+           testUrl = baseURL + inValidAuthority[i];
+           //System.out.println(testUrl);
+           //System.out.println(urlVal.isValid(testUrl));
+           assertEquals(false, urlVal.isValid(testUrl));
+           group34_assertFalse(testUrl, urlVal.isValid(testUrl));
+       }
+      
+       if(fail == true)
+           System.out.println("Negative Authority Tests FAILED");
+       else
+           System.out.println("Negative Authority Tests PASSED");
+       System.out.println("");
+
+   }
+   
+   
+   public void testPathsPartitions()
+   {
+	   System.out.println("BEGINNING Positive Paths Tests"); 
+       fail = false; 
+       UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+       String testUrl;
+       String baseURL = "http://www.google.com";
+       String[] validPaths = {"/maps", "/123458", "/maps/", "", "/maps/preview"};
+       for (int i = 0; i < validPaths.length; i++ ) {
+           testUrl =  baseURL + validPaths[i];
+           //System.out.println(urlVal.isValid(testUrl));
+           assertTrue(urlVal.isValid(testUrl));
+           group34_assertTrue(testUrl, urlVal.isValid(testUrl));
+       }
+       
+       if(fail == true)
+           System.out.println("Postive Authority Tests FAILED");
+       else
+           System.out.println("Positive Authority Tests PASSED");
+       System.out.println("");
+
+       System.out.println("BEGINNING Negative Paths Tests"); 
+       String[] inValidPaths = {"//maps","/maps//file", "/.."};
+
+       for (int i = 0; i < inValidPaths.length ; i++)
+       {
+           testUrl = baseURL + inValidPaths[i];
+           //System.out.println(urlVal.isValid(testUrl));
+           assertEquals(false, urlVal.isValid(testUrl));
+           group34_assertFalse(testUrl, urlVal.isValid(testUrl));
+       }
+       
+       if(fail == true)
+           System.out.println("Negative Authority Tests FAILED");
+       else
+           System.out.println("Negative Authority Tests PASSED");
+       System.out.println("");
+
+   }
+  
    public void testIsValidScheme() {
       if (printStatus) {
          System.out.print("\n testIsValidScheme() ");
@@ -334,14 +433,14 @@ protected void setUp() {
     static boolean incrementTestPartsIndex(int[] testPartsIndex, Object[] testParts) {
       boolean carry = true;  //add 1 to lowest order part.
       boolean maxIndex = true;
-      for (int testPartsIndexIndex = testPartsIndex.length; testPartsIndexIndex >= 0; --testPartsIndexIndex) {
+      for (int testPartsIndexIndex = testPartsIndex.length-1; testPartsIndexIndex >= 0; --testPartsIndexIndex) { // length -1
           int index = testPartsIndex[testPartsIndexIndex];
          ResultPair[] part = (ResultPair[]) testParts[testPartsIndexIndex];
          maxIndex &= (index == (part.length - 1));
          
          if (carry) {
             if (index < part.length - 1) {
-            	index--;
+            	index++; //change index -- to index ++
                testPartsIndex[testPartsIndexIndex] = index;
                carry = false;
             } else {
