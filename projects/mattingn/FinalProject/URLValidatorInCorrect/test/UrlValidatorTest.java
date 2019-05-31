@@ -48,6 +48,9 @@ protected void setUp() {
 
         testIsValid(testUrlPartsOptions, options);
    }
+  
+//Begin Group 34 Methods...
+
    private static boolean fail = false;
    private static int random_fail_counter;
    static public void group34_assertFalse(String url, boolean return_isValid) {
@@ -64,7 +67,8 @@ protected void setUp() {
            random_fail_counter++; // only used for random tests
        }
    }
-
+  
+//Authority Testing...
    public void testAuthorityPartitions()
    {
        System.out.println("BEGINNING Positive Authority Tests"); 
@@ -107,7 +111,7 @@ protected void setUp() {
 
    }
    
-   
+ // Paths testing....  
    public void testPathsPartitions()
    {
 	   System.out.println("BEGINNING Positive Paths Tests"); 
