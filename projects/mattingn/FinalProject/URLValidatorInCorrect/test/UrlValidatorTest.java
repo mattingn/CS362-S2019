@@ -383,29 +383,12 @@ protected void setUp() {
    
 /*	
  * 
- * Begin Group 34 Tests
+ * Begin Group 34 Unit Tests
  * 
  * 
 */
    
-   private static boolean fail = false;		// flag to indicate a failed test
-   private static int random_fail_counter;	// counts failed random tests
-   
-   static public void group34_assertFalse(String url, boolean return_isValid) {
-       if(return_isValid == true) {
-           System.out.println("Error - URL should be invalid: " + url);
-           fail = true;
-           random_fail_counter++; 			// only used for random tests
-       }
-   }
-   
-   static public void group34_assertTrue(String url, boolean return_isValid) {
-       if(return_isValid == false) {
-           System.out.println("Error - URL should be valid: " + url);
-           fail = true;
-           random_fail_counter++; 			// only used for random tests
-       }
-   }
+
    
 
 /***********************************************************************************************************
