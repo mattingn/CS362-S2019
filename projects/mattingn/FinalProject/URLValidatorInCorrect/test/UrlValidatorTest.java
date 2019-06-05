@@ -77,86 +77,464 @@ protected void setUp() {
        }
    }
    
-// All Partitions - Whole URL
-// (tests whole and missing components)
-//   	positive and negative testing
-   public void test_Whole_and_Partial_URLs()
-   {
-       UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
 
-       // POSITIVE TESTS
-       fail = false;
-       System.out.println("BEGINNING Positive Whole URL Tests");
-       String[] wholeURL = 
-       {
-		   "https://www.google.com", 
-		   "https://www.cisco.com",
-		   "https://www.amazon.com",
-		   "h3t://www.google.co.uk/search?q=url&ie=utf-8&oe=utf-8&aq=t&rls=org.mozilla:en-GB:official&client=firefox-a",
-		   "https://www.google.com/search?q=i%20like%20gizmodo&rct=j",
-		   "http://api.plos.org/search?q=title:\"Drosophila",
-		   "https://secure.flickr.com/search/?q=kittens",
-		   "http://staging.company.com/section/cart?promo=749387493",
-		   "https://secure.flickr.com/search/?q=tree+-swing&l=commderiv&d=taken-20000101-20051231&ct=0&mt=all&adv=1",
-		   "http://192.168.1.102:95",
-		   "http://video.google.co.uk:80/videoplay?docid=-7246927612831078230&hl=en#00h02m30s",
-		   
-		   // NOTE: this string is used for the negative tests below
-		   "scheme://authority.domain.com:80/pathA/pathB/pathC?query1=query2=query3"
-       };
-       for (int i = 0; i < wholeURL.length; i++ ) {
-           //System.out.println(urlVal.isValid(wholeURL[i]) + " = " + wholeURL[i]);
-           group34_assertTrue(wholeURL[i], urlVal.isValid(wholeURL[i]));
-           //assertTrue(urlVal.isValid(wholeURL[i]));
-       }
-       if(fail == true)
-    	   System.out.println("Positive Whole URL Tests FAILED");
-       else
-    	   System.out.println("Positive Whole URL Tests PASSED");
-       System.out.println("");
-    	   
-       // NEGATIVE TESTS
-       fail = false;
-       System.out.println("BEGINNING Negative Missing Parts Tests");
-       String[] missing_part_URL = 
-       {
-    	   // Missing scheme  
-		   "authority.domain.com:80/pathA/pathB/pathC?query1=query2=query3",
-		   // Missing authority and domain
-		   "scheme://pathA/pathB/pathC?query1=query2=query3",
-		   // Missing domain 
-		   "scheme://authority:80/pathA/pathB/pathC?query1=query2=query3",
-		   // Missing domain, includes TLD and port
-		   "scheme://.com:80/pathA/pathB/pathC?query1=query2=query3",
-		   // Missing domain, includes TLD, missing port
-		   "scheme://.com/pathA/pathB/pathC?query1=query2=query3",
-		   // Missing TLD
-		   "scheme://authority.domain:80/pathA/pathB/pathC?query1=query2=query3",
-		   // Invalid port (not an integer)
-		   "scheme://authority.domain.com:8A/pathA/pathB/pathC?query1=query2=query3",
-		   // Invalid port (out of range)
-		   "scheme://authority.domain.com:65536/pathA/pathB/pathC?query1=query2=query3",
-		   // Invalid port (negative)
-		   "scheme://authority.domain.com:-80/pathA/pathB/pathC?query1=query2=query3",
-		   // Invalid port (negative zero)
-		   "scheme://authority.domain.com:-0/pathA/pathB/pathC?query1=query2=query3"
-       };
-       for (int i = 0; i < missing_part_URL.length; i++ ) {
-           //System.out.println(urlVal.isValid(missing_part_URL[i]) + " = " + missing_part_URL[i]);
-           group34_assertFalse(missing_part_URL[i], urlVal.isValid(missing_part_URL[i]));
-           //assertFalse(urlVal.isValid(missing_part_URL[i]));
-       }
-       if(fail == true)
-    	   System.out.println("Negative Missing Parts Tests FAILED");
-       else
-    	   System.out.println("Negative Missing Parts Tests PASSED");
-	   System.out.println("");
-    	   
-         
-   }
+/***********************************************************************************************************
+ * GENERATED URL SUB-STRINGS
+ * These strings are used to automatically generate URLs and they are created by a combination of manual, 
+ * automatic, and searched URL partition strings.
+ * **********************************************************************************************************/    
+
+   String[] validScheme = {
+		   "https://", 
+		   "ftp://", 
+		   "h3t://", 
+		   "android://", 
+		   "aaaaa://", 
+		   "zttpp://", 
+		   "cap://",
+		   "grep://",
+		   "about://", 
+		   "dns://",
+		   "dvb://", 
+		   "geo://",
+		   "svn://", 
+		   "tip://",
+		   "unreal://", 
+		   "urn://",
+		   "xfire://", 
+		   "soap.beeps://",
+		   "simpleledger://", 
+		   "eid://", 
+		   "mac://",
+		   "printer://"
+};
    
-// Scheme Partition
+
+   
+   String[] inValidScheme = {
+		   "://",
+		   "3ht://", 
+		   "http/", 
+		   " ", 
+		   "ht..tp/", 
+           "h htp ",
+           "..h..", 
+           "33hh ",
+           "$//", 
+           "// //",
+           "* *//", 
+           "44ht://",
+           "  //  x ", 
+           "/??..",
+           "Httttp :", 
+           "3xt://",
+           "sttp: ", 
+           "google;",
+           ":google ", 
+           "goo:gle ",
+           "goo gle ", 
+           "///..",
+           "%^*$)", 
+           "=",
+           "++", 
+           " {}",
+           "[]", 
+           "  .  ",
+           "ff_ _http:",
+           "%%%",
+           "http^",
+           "http /", 
+           "nttp?//:",
+           "X ttp?:",
+           "Z ttpp://",
+           "http:/ / ",
+           "hiip:/",
+           " http:///",
+           "Cd+++",
+           "linux++//:",
+           "testfile///:",
+           "Aa aaa://",
+           "!",
+           "~",
+           "--",
+           "+",
+           "h++tp//:",
+           "hip //;",
+           "sch.eme.//:",
+           "h[ttp//:",
+           "[http//:",
+           "http/ /:",
+           "N!",
+           "zzz|"
+
+	};
+   String[] validAuthority = {
+			"www.google.com", 
+			"www.google.co.in", 
+			"255.255.255.255", 
+			"1.1.1.1 ", 
+	        "1.2.3.4",
+	        "www.cisco.com", 
+	        "www.abcdefghijklmn.com",
+	        "cisco.com", 
+	        "tesla.com",
+	        "www.tesla.com", 
+	        "r2d3e4.com",
+	        "spacex.com", 
+	        "www.1234.com ",
+	        "www.cisco.us", 
+	        "www.cisco.io",
+	        "www.cisco.eu", 
+	        "www.cisco.au",
+	        "www.cisco.cn", 
+	        "www.cisco.de",
+	        "www.cisco.edu", 
+	        "www.cisco.gov",
+	        "www.github.com", 
+	        "www.points.com",
+	        "www.abcd1234.com", 
+	        "www.a.com",
+	        "www.z.com", 
+	        "www.a1.com",
+	        "www.z1.com", 
+	        "www.cisco.cc",
+	        "www.cisco.aq", 
+	        "www.cisco.bz",
+	        "www.github.cd", 
+	        "www.github.tf",
+	        "www.domainit.com", 
+	        "www.intelcom.sm", 
+	        "www.abbie-seede.com",
+	        "www.rbxvault.com",
+	        "www.ask.fm", 
+	        "win-win.com",
+	        "www.my.su", 
+	        "www.whois.com",
+	        "www.info.com", 
+	        "www.911.com",
+	        "www.pt.pt.com", 
+	        "www.one.two.three.com",
+	        "www.one.two.three.four.five.com",
+	        "www.lastvalidauthority.com"
+	};
+
+
+
+	String[] inValidAuthority = {
+			"www.google.ckosa",
+			"zzz", 
+			"1.2.3.4.5", 
+			"256.256.256.256", 
+	        "1.2.3.4.",
+	        "1.2.3", 
+	        ".1.2.3.4",
+	        "go.a", 
+	        "go.a1a",
+	        "go.1aa", 
+	        "aaa.",
+	        ".aaa", 
+	        "aaa",
+	        " www.sony.cormp", 
+	        " www.nintendo.sdra",
+	        "aven.ger.s",
+	        "mtl.g&r.s0lid", 
+	        "!a.mb@.man",
+	        " fdsa.fda.da.ada", 
+	        "23432.23.34.3.2 ", 
+	        "wut.up.d@wg", 
+	        "thug.4lyfe.yoyo", 
+	        "steph-curry.withda.shot..boi",
+	        "sno.ooo.oooooop", 
+	        "I.lykebig.butts0909. "   
+
+			};
+	   
+	String[] validPaths = {
+			   "/maps", 
+			   "/123458", 
+			   "/maps/", 
+			   "", 
+			   "/x1234", 
+	           "/1234",
+	           "/path1/path2", 
+	           "/123/456/789",
+	           "/search", 
+	           "/a",
+	           "/axfleidl", 
+	           "/dkendkdkvkle",
+	           "/a/b/c/d/e/f/g", 
+	           "/1/a/2/b/3/c/4/d",
+	           "/#/file",
+	           "/z555/444", 
+	           "/aaaaaa",
+	           "/$1$3", 
+	           "/abcd$x/",
+	           "/.", 
+	           "/a/$",
+	           "/a/b/", 
+	           "/filepath/file1",
+	           "/", 
+	           "/chien/",
+	           "/oui/", 
+	           "/$sour",
+	           "/100", 
+	           "/",
+	           "/$.", 
+	           "/$a/$b/",
+	           "/us/.", 
+	           "/valid/path/name", 
+	           "/kd94kd943/jd94khg/",
+	           "/$38795473498", 
+	           "/$_/$path-1/path-2",
+	           "/path-path-path/", 
+	           "/_path/..",
+	           "/__/..", 
+	           "/lastvalidpath/"
+	};
+
+
+	String[] inValidPaths = {
+			"//maps",
+			"/maps//file", 
+			"/..",
+			"/3j3onSon….o33 ", 
+	        "  / #/ ^f.il  eio",
+	        " /../com@mebro", 
+	        "/////secsay...cani",
+	        "   /hit/me/baby/one/more/ ^  time", 
+	        "how_.can_.she_.slap",
+	        "././   ./././.0/.0", 
+	        "/.^.^.:)/ ",
+	        "/6si66…../",
+	        "/fda32...3234//432", 
+	        "//fdsar...32/52r/dd",
+	        "/fd32/43..3//3.", 
+	        " /...s ingaloudsongkd-.-.", 
+	        "/-   .0.0...,0    ",
+	        "/._._._._--.-/  ", 
+	        "/fds,3,2.302.32////..df3.32./.3.23..",
+	        "//r22/342/s223//34/ ", 
+	        "/fds//32f/d-///d/s/d/43/", 
+	        "/2342d.d.3/32/2f/aa4///23/23//",
+	        "/...3.3...3...3..2..1...1..2 ", 
+	        "/taadaatdaaddadada//d/d/d ",
+	        "//what..es..urrlif.eee….f",
+	        "//seagul...larittttyyyy…./ ", 
+	        " / #  /  path  ", 
+	        " / fasscssiinnar...t.in,,,gg.g  .",
+	        "//sllooo///mooe///,,dds", 
+	        "          /bloo.o.o.d.h.hheyyllellala     l00la---dk",
+	        "/5w4efsdg//dfg43...43./3/3/3adg/", 
+	        "/jellllossss….davvviiidddD??DD??///////", 
+	        "   /  #",
+	        "          / ##          / path23     /fsd  "
+	};
+	String[] validPort = {
+			   ":80", 
+			   ":65535", 
+			   ":0", 
+			   "",
+			   ":812", 
+	           ":3000",
+	           ":3123 ", 
+	           ":543",
+	           ":421 ", 
+	           ":34123",
+	           ":902", 
+	           ":5312 ",
+	           ":7685", 
+	           ":1234",
+	           ":5678", 
+	           ":1112 ",
+	           ":361", 
+	           ":809 ",
+	           ":18387", 
+	           ":31726",
+	           ":17169", 
+	           ":22686 ",
+	           ":51131",
+	           ":64630", 
+	           ":60236",
+	           ":43033", 
+	           ":50519",
+	           ":10808", 
+	           ":16410",
+	           ":32496", 
+	           ":3149 ",
+
+	   };
+	   
+	   String[] inValidPort = {
+			   ":65536",
+			   ":-1", 
+			   ":65636", 
+			   ":999999999999999999", 
+			   ":65a", 
+			   ":65536",
+	           ":-1",
+	           ":65636",
+	           ":999999999999999999",
+	           ":65a",
+	           ":.31459465269 ", 
+	           ":-0",
+	           ":-00", 
+	           ":-",
+	           ":00000x1", 
+	           ":l",
+	           ":ll", 
+	           ":1o",
+	           ";99", 
+	           ";1",
+	           ":1O", 
+	           ":1-",
+	           ":226^", 
+	           ":100-00",
+	           ":!", 
+	           ":I",
+	           ":I00", 
+	           ":80*",
+	           ":33,333", 
+	           ":1.1",
+	           ":80:80", 
+	           ":999,999",
+	           ":99I",
+	           ":|", 
+	           ":1>1", 
+	           "::80",
+	           ":::8080", 
+	           ":80;",
+	           "-0001" 
+	};
+	   String[] validQuery = 
+	       {
+	    		   
+	    		   "?query1", 
+	    		   "?query1=query2", 
+	    		   "?query3", 
+	    		   "?action=view", 
+	               "?action=edit&mode=up",
+	               " ", 
+	               "?name=Jackie&Age=27",
+	               "?email=”fda@fda.com”&secret=432ss3", 
+	               "?housename=Stark&charactername=Jon",
+	               "?jediName=Obiwan&padawan=Anakin", 
+	               "?photoID=32&profileID=13321sas2",
+	               "?geoLocationID=432&Lat=324&Long=2133", 
+	               "?q=invalid+authority+url&rlz=1C5CHFA_enUS819US820&oq=invalid+authority+url&aqs=chrome..69i57.8088j0j1&sourceid=chrome&ie=UTF-8",
+	               "?game=final-fantasy-vii-remake", 
+	               "?q=halo",
+	               "?q=harryPotter", 
+	               "?q=halo%204&page=0&count=10&",
+	               "?q=playstation&qs=n&form=QBLH&sp=-1&pq=playstation&sc=8-11&sk=&cvid=819401A6452149C2BA04AE37B5028E94", 
+	               "?q=light%20of%20the%20seven&qs=n&form=QBRE&sp=-1&pq=&sc=8-0&sk=&cvid=2D90FFCB50014FF282E25324CDAE1AAB"
+	};
+	   
+	   String[] inValidQuery = 
+	       {
+	    		   "!query=1", 
+	    		   "$query1=query2", 
+	    		   "&z",
+	    		   ";z",
+	    		   "query3=1",
+	    		   "search?action====view", 
+	               "12?action=edit&mode=!23=445===up",
+	               "  3&&&&&&&&&   ", 
+	               "523?name-=.&&&&&&=Jackie&Age=27",
+	               "se2?email=”fda@fda...com”&secret=432ss3   ", 
+	               "e21?housename===Stark&charactername=Jon",
+	                "star21wars?jediName=Obiwan&padawan==Anakin", 
+	               "?photoID -=32&profileID=13321sas2",
+	               "?geo- -LocationID=432&Lat=324&Long=2133", 
+	               "? q=invalid+authority+url&rlz=1C5CHFA_enUS819US820&oq=invalid+authority+url&aqs=chrome..69i57.8088j0j1&sourceid=chrome&ie=UTF-8",
+	               "?game=final-fantasy-vii- remake", 
+	               "?q=h alo",
+	               "?q=harry Potter", 
+	               "?q=halo%204&page=0&count=10 &",
+	               "? q=playstation&qs=n&form=QBLH&sp=-1&pq=playstation&sc=8-11&sk=&cvid=819401A6452149C2BA04AE37B5028E94", 
+	               "?q=light%20of%20the%20seven&qs=n&form=QBRE&sp=-1&pq=&sc=8-0&sk=&cvid=2D90FFCB50014FF282E25324CDAE1AAB ",
+	};
+	   
+	// All Partitions - Whole URL
+	// (tests whole and missing components)
+//	   	positive and negative testing
+	   public void test_Whole_and_Partial_URLs()
+	   {
+	       UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+
+	       // POSITIVE TESTS
+	       fail = false;
+	       System.out.println("BEGINNING Positive Whole URL Tests");
+	       String[] wholeURL = 
+	       {
+			   "https://www.google.com", 
+			   "https://www.cisco.com",
+			   "https://www.amazon.com",
+			   "h3t://www.google.co.uk/search?q=url&ie=utf-8&oe=utf-8&aq=t&rls=org.mozilla:en-GB:official&client=firefox-a",
+			   "https://www.google.com/search?q=i%20like%20gizmodo&rct=j",
+			   "http://api.plos.org/search?q=title:\"Drosophila",
+			   "https://secure.flickr.com/search/?q=kittens",
+			   "http://staging.company.com/section/cart?promo=749387493",
+			   "https://secure.flickr.com/search/?q=tree+-swing&l=commderiv&d=taken-20000101-20051231&ct=0&mt=all&adv=1",
+			   "http://192.168.1.102:95",
+			   "http://video.google.co.uk:80/videoplay?docid=-7246927612831078230&hl=en#00h02m30s",
+			   
+			   // NOTE: this string is used for the negative tests below
+			   "scheme://authority.domain.com:80/pathA/pathB/pathC?query1=query2=query3"
+	       };
+	       for (int i = 0; i < wholeURL.length; i++ ) {
+	           //System.out.println(urlVal.isValid(wholeURL[i]) + " = " + wholeURL[i]);
+	           group34_assertTrue(wholeURL[i], urlVal.isValid(wholeURL[i]));
+	           //assertTrue(urlVal.isValid(wholeURL[i]));
+	       }
+	       if(fail == true)
+	    	   System.out.println("Positive Whole URL Tests FAILED");
+	       else
+	    	   System.out.println("Positive Whole URL Tests PASSED");
+	       System.out.println("");
+	    	   
+	       // NEGATIVE TESTS
+	       fail = false;
+	       System.out.println("BEGINNING Negative Missing Parts Tests");
+	       String[] missing_part_URL = 
+	       {
+	    	   // Missing scheme  
+			   "authority.domain.com:80/pathA/pathB/pathC?query1=query2=query3",
+			   // Missing authority and domain
+			   "scheme://pathA/pathB/pathC?query1=query2=query3",
+			   // Missing domain 
+			   "scheme://authority:80/pathA/pathB/pathC?query1=query2=query3",
+			   // Missing domain, includes TLD and port
+			   "scheme://.com:80/pathA/pathB/pathC?query1=query2=query3",
+			   // Missing domain, includes TLD, missing port
+			   "scheme://.com/pathA/pathB/pathC?query1=query2=query3",
+			   // Missing TLD
+			   "scheme://authority.domain:80/pathA/pathB/pathC?query1=query2=query3",
+			   // Invalid port (not an integer)
+			   "scheme://authority.domain.com:8A/pathA/pathB/pathC?query1=query2=query3",
+			   // Invalid port (out of range)
+			   "scheme://authority.domain.com:65536/pathA/pathB/pathC?query1=query2=query3",
+			   // Invalid port (negative)
+			   "scheme://authority.domain.com:-80/pathA/pathB/pathC?query1=query2=query3",
+			   // Invalid port (negative zero)
+			   "scheme://authority.domain.com:-0/pathA/pathB/pathC?query1=query2=query3"
+	       };
+	       for (int i = 0; i < missing_part_URL.length; i++ ) {
+	           //System.out.println(urlVal.isValid(missing_part_URL[i]) + " = " + missing_part_URL[i]);
+	           group34_assertFalse(missing_part_URL[i], urlVal.isValid(missing_part_URL[i]));
+	           //assertFalse(urlVal.isValid(missing_part_URL[i]));
+	       }
+	       if(fail == true)
+	    	   System.out.println("Negative Missing Parts Tests FAILED");
+	       else
+	    	   System.out.println("Negative Missing Parts Tests PASSED");
+		   System.out.println("");
+	    	   
+	         
+	   }
+	   
+	// Scheme Partition
 //	   positive and negative testing
+   	   
 public void testSchemePartitions()
 {
     UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
@@ -167,7 +545,7 @@ public void testSchemePartitions()
     System.out.println("BEGINNING Positive Scheme Tests");
     fail = false;
 
-    String[] validScheme = {"https://", "ftp://", "h3t://"};
+    
     for (int i = 0; i < validScheme.length; i++ ) {
         testUrl =  validScheme[i] + baseURL;
         group34_assertTrue(testUrl, urlVal.isValid(testUrl));
@@ -183,8 +561,7 @@ public void testSchemePartitions()
     System.out.println("BEGINNING Negative Scheme Tests");
     fail = false;
 
-    String[] inValidScheme = {"://","3ht://", "http:", "http/", " "};
-
+   
     for (int i = 0; i < inValidScheme.length ; i++)
     {
         testUrl = inValidScheme[i] +baseURL;
@@ -200,7 +577,9 @@ public void testSchemePartitions()
   
 //Authority Partition
 //   	positive and negative testing
-   public void testAuthorityPartitions()
+
+
+public void testAuthorityPartitions()
    {
 	    // POSITIVE TESTS
        System.out.println("BEGINNING Positive Authority Tests"); 
@@ -208,12 +587,12 @@ public void testSchemePartitions()
        UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
        String testUrl;
        String baseURL = "http://";
-       String[] validAuthority = {"www.google.com", "www.google.co.in", "255.255.255.255"};
+     
        for (int i = 0; i < validAuthority.length; i++ ) {
            testUrl =  baseURL + validAuthority[i];
            //System.out.println(testUrl);
            //System.out.println(urlVal.isValid(testUrl));
-           assertTrue(urlVal.isValid(testUrl));
+           //assertTrue(urlVal.isValid(testUrl));
            group34_assertTrue(testUrl, urlVal.isValid(testUrl));
            
        }
@@ -225,14 +604,14 @@ public void testSchemePartitions()
        
        // NEGATIVE TESTS
        System.out.println("BEGINNING Negative Authority Tests"); 
-       String[] inValidAuthority = {"www.google.ckosa","zzz", "1.2.3.4.5"};
+       
        fail = false; 
        for (int i = 0; i < inValidAuthority.length ; i++)
        {
            testUrl = baseURL + inValidAuthority[i];
            //System.out.println(testUrl);
            //System.out.println(urlVal.isValid(testUrl));
-           assertEquals(false, urlVal.isValid(testUrl));
+           //assertEquals(false, urlVal.isValid(testUrl));
            group34_assertFalse(testUrl, urlVal.isValid(testUrl));
        }
       
@@ -246,6 +625,10 @@ public void testSchemePartitions()
    
 // Path Partition  
 //   	positive and negative testing
+
+
+
+
    public void testPathsPartitions()
    {
 	    // POSITIVE TESTS
@@ -254,11 +637,11 @@ public void testSchemePartitions()
        UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
        String testUrl;
        String baseURL = "http://www.google.com";
-       String[] validPaths = {"/maps", "/123458", "/maps/", "", "/maps/preview"};
+      
        for (int i = 0; i < validPaths.length; i++ ) {
            testUrl =  baseURL + validPaths[i];
            //System.out.println(urlVal.isValid(testUrl));
-           assertTrue(urlVal.isValid(testUrl));
+           //assertTrue(urlVal.isValid(testUrl));
            group34_assertTrue(testUrl, urlVal.isValid(testUrl));
        }
        
@@ -270,13 +653,13 @@ public void testSchemePartitions()
 
        // NEGATIVE TESTS
        System.out.println("BEGINNING Negative Paths Tests"); 
-       String[] inValidPaths = {"//maps","/maps//file", "/.."};
+      
 
        for (int i = 0; i < inValidPaths.length ; i++)
        {
            testUrl = baseURL + inValidPaths[i];
            //System.out.println(urlVal.isValid(testUrl));
-           assertEquals(false, urlVal.isValid(testUrl));
+           //assertEquals(false, urlVal.isValid(testUrl));
            group34_assertFalse(testUrl, urlVal.isValid(testUrl));
        }
        
@@ -290,7 +673,9 @@ public void testSchemePartitions()
 
  // Ports Partition
  // 	positive and negative testing
-    public void testPortsPartitions()
+   
+   
+   public void testPortsPartitions()
     {
 
         // POSITIVE TESTS
@@ -301,7 +686,7 @@ public void testSchemePartitions()
         System.out.println("BEGINNING Positive Port Tests");
         fail = false;
 
-        String[] validPort = {":80", ":65535", ":0", ""};
+      
         for (int i = 0; i < validPort.length; i++ ) {
             testUrl =   baseURL + validPort[i];
             group34_assertTrue(testUrl, urlVal.isValid(testUrl));
@@ -317,7 +702,7 @@ public void testSchemePartitions()
         fail = false;
 
         // NEGATIVE TESTS
-        String[] inValidPort = {":65536",":-1", ":65636", ":999999999999999999", ":65a"};
+      
 
         for (int i = 0; i < inValidPort.length; i++)
         {
@@ -334,6 +719,8 @@ public void testSchemePartitions()
     
  // Query Partition
  // 	positive and negative testing
+   
+   
     public void testQueryPartitions()
     {
         UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
@@ -343,14 +730,7 @@ public void testSchemePartitions()
         // POSITIVE TESTS
         System.out.println("BEGINNING Positive Query Tests");
  	   fail = false;
-        String[] validQuery = 
-        {
-     		   
-     		   "?query1", 
-     		   "?query1=query2", 
-     		   "?query3"
-     		   
-        };
+       
         for (int i = 0; i < validQuery.length; i++ ) {
             testUrl =  baseUrl + validQuery[i];
             group34_assertTrue(testUrl, urlVal.isValid(testUrl));
@@ -364,14 +744,7 @@ public void testSchemePartitions()
         // NEGATIVE TESTS
         System.out.println("BEGINNING Negative Query Tests");
         fail = false;
-        String[] inValidQuery = 
-        {
-     		   "!query=1", 
-     		   "$query1=query2", 
-     		   "&z",
-     		   ";z",
-     		   "query3=1"
-        };
+      
 
         for (int i = 0; i < inValidQuery.length ; i++)
         {
