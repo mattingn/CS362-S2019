@@ -48,6 +48,335 @@ protected void setUp() {
 
         testIsValid(testUrlPartsOptions, options);
    }
+   
+     
+   //***
+   // BEGIN GROUP 34 RANDOM TESTS
+   //***
+   
+   /***********************************************************************************************************
+    * GENERATED URL SUB-STRINGS
+    * These strings are used to automatically generate URLs and they are created by a combination of manual, 
+    * automatic, and searched URL partition strings.
+    * **********************************************************************************************************/    
+
+      String[] valid_scheme_partition = {
+   		   "https://", 
+   		   "ftp://", 
+   		   "h3t://", 
+   		   "android://", 
+   		   "aaaaa://", 
+   		   "zttpp://", 
+   		   "cap://",
+   		   "grep://",
+   		   "about://", 
+   		   "dns://",
+   		   "dvb://", 
+   		   "geo://",
+   		   "svn://", 
+   		   "tip://",
+   		   "unreal://", 
+   		   "urn://",
+   		   "xfire://", 
+   		   "soap.beeps://",
+   		   "simpleledger://", 
+   		   "eid://", 
+   		   "mac://",
+};
+      
+
+      
+      String[] invalid_scheme_partition = {
+   		   "://",
+   		   "3ht://", 
+   		   "http/", 
+   		   " ", 
+   		   "ht..tp/", 
+              "h htp ",
+              "..h..", 
+              "33hh ",
+              "$//", 
+              "// //",
+              "* *//", 
+              "44ht://",
+              "  //  x ", 
+              "/??..",
+              "Httttp :", 
+              "3xt://",
+              "sttp: ", 
+              "google;",
+              ":google ", 
+              "goo:gle ",
+              "goo gle ", 
+};
+      String[] valid_authority_partition = {
+   			"www.google.com", 
+   			"www.google.co.in", 
+   			"255.255.255.255", 
+   			"1.1.1.1", 
+   	        "1.2.3.4",
+   	        "www.cisco.com", 
+   	        "www.abcdefghijklmn.com",
+   	        "cisco.com", 
+   	        "tesla.com",
+   	        "www.tesla.com", 
+   	        "r2d3e4.com",
+   	        "spacex.com", 
+   	        "www.1234.com",
+   	        "www.cisco.us", 
+   	        "www.cisco.io",
+   	        "www.cisco.eu", 
+   	        "www.cisco.au",
+   	        "www.cisco.cn", 
+   	        "www.cisco.de",
+   	        "www.cisco.edu", 
+   	        "www.cisco.gov",
+   	        
+   	};
+
+
+
+   	String[] invalid_authority_partition = {
+   			"www.google.ckosa",
+   			"zzz", 
+   			"1.2.3.4.5", 
+   			"256.256.256.256", 
+   	        "1.2.3.4.",
+   	        "1.2.3", 
+   	        ".1.2.3.4",
+   	        "go.a", 
+   	        "go.a1a",
+   	        "go.1aa", 
+   	        "aaa.",
+   	        ".aaa", 
+   	        "aaa",
+   	        " www.sony.cormp", 
+   	        " www.nintendo.sdra",
+   	        "aven.ger.s",
+   	        "mtl.g&r.s0lid", 
+   	        "!a.mb@.man",
+   	        " fdsa.fda.da.ada", 
+   	        "23432.23.34.3.2 ", 
+   	        "wut.up.d@wg", 
+   	       
+
+   			};
+   	   
+   	String[] valid_path_partition = {
+   			   "/maps", 
+   			   "/123458", 
+   			   "/maps/", 
+   			   "", 
+   			   "/x1234", 
+   	           "/1234",
+   	           "/path1/path2", 
+   	           "/123/456/789",
+   	           "/search", 
+   	           "/a",
+   	           "/axfleidl", 
+   	           "/dkendkdkvkle",
+   	           "/a/b/c/d/e/f/g", 
+   	           "/1/a/2/b/3/c/4/d",
+   	           "/#/file",
+   	           "/z555/444", 
+   	           "/aaaaaa",
+   	           "/$1$3", 
+   	           "/abcd$x/",
+   	           "/.", 
+   	           "/a/$",
+   	        
+   	          
+   	};
+
+
+   	String[] invalid_path_partition = {
+   			"//maps",
+   			"/maps//file", 
+   			"/..",
+   			"/3j3onSon….o33 ", 
+   	        "  / #/ ^f.il  eio",
+   	        " /../com@mebro", 
+   	        "/////secsay...cani",
+   	        "   /hit/me/baby/one/more/ ^  time", 
+   	        "how_.can_.she_.slap",
+   	        "././   ./././.0/.0", 
+   	        "/.^.^.:)/ ",
+   	        "/6si66…../",
+   	        "/fda32...3234//432", 
+   	        "//fdsar...32/52r/dd",
+   	        "/fd32/43..3//3.", 
+   	        " /...s ingaloudsongkd-.-.", 
+   	        "/-   .0.0...,0    ",
+   	        "/._._._._--.-/  ", 
+   	        "/fds,3,2.302.32////..df3.32./.3.23..",
+   	        "//r22/342/s223//34/ ", 
+   	        "/fds//32f/d-///d/s/d/43/", 
+   	       
+   	};
+   	String[] valid_port_partition = {
+   			   ":80", 
+   			   ":65535", 
+   			   ":0", 
+   			   "",
+   			   ":812", 
+   	           ":3000",
+   	           ":3123 ", 
+   	           ":543",
+   	           ":421 ", 
+   	           ":34123",
+   	           ":902", 
+   	           ":5312 ",
+   	           ":7685", 
+   	           ":1234",
+   	           ":5678", 
+   	           ":1112 ",
+   	           ":361", 
+   	           ":809 ",
+   	           ":18387", 
+   	           ":31726",
+   	           ":17169" 
+};
+   	   
+   	   String[] invalid_port_partition = {
+   			   ":65536",
+   			   ":-1", 
+   			   ":65636", 
+   			   ":999999999999999999", 
+   			   ":65a", 
+   			   ":65536",
+   	           ":-1",
+   	           ":65636",
+   	           ":999999999999999999",
+   	           ":65a",
+   	           ":.31459465269 ", 
+   	           ":-0",
+   	           ":-00", 
+   	           ":-",
+   	           ":00000x1", 
+   	           ":l",
+   	           ":ll", 
+   	           ":1o",
+   	           ";99", 
+   	           ";1",
+   	           ":1O", 
+   	        
+   	};
+   	   
+   	
+   	   
+   	   
+   private static boolean fail = false;
+   private static int random_fail_counter;
+   static public void group34_assertFalse(String url, boolean return_isValid) {
+	   if(return_isValid == true) {
+		   System.out.println("Error - URL should be invalid: " + url);
+		   fail = true;
+		   random_fail_counter++; // only used for random tests
+	   }
+   }
+   static public void group34_assertTrue(String url, boolean return_isValid) {
+	   if(return_isValid == false) {
+		   System.out.println("Error - URL should be valid: " + url);
+	       fail = true;
+	       random_fail_counter++; // only used for random tests
+	   }
+   } 
+   
+   public void testRandomURLs()
+   {
+	   int i;						// test loop index
+	   int num_random_tests = 500;	// number of random tests
+	   
+	   // Random test strategy
+	   //   For Positive Testing
+	   //	1. Establish four partitions - scheme, authority, port, and path
+	   //	2. Initialize valid strings within each partition
+	   //   3. Randomly select from each partition
+	   //   4. Built the URL
+	   //
+	   //   For Negative Testing
+	   //	1. Repeat steps 1 and 2 above
+	   //   3. Randomly select one of the four partitions to be invalid
+	   //   3. Replace the selected valid partition with an invalid version
+	   //   4. Built the URL, which will now have one of the partitions invalid
+	   
+	   // Partition indices
+	   int validSchemeIndex;		
+	   int invalidSchemeIndex;	
+	   
+	   int validAuthorityIndex;
+	   int invalidAuthorityIndex;	
+	   
+	   int validPortIndex;
+	   int invalidPortIndex;		
+	   
+	   int validPathIndex;
+	   int invalidPathIndex;		
+	   
+	   
+	   // Positive Random Tests	   
+	   System.out.println("BEGINNING Positive Random Tests");
+	   fail = false;
+	   random_fail_counter = 0;
+	   for( i = 0; i < num_random_tests; i++)
+	   {
+		   validSchemeIndex = (int)(Math.random()*20);	
+		   validAuthorityIndex = (int)(Math.random()*20);
+		   validPortIndex = (int)(Math.random()*20);	
+		   validPathIndex = (int)(Math.random()*20);	
+
+ 		   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+		   String testUrl = valid_scheme_partition[validSchemeIndex] + valid_authority_partition[validAuthorityIndex] + valid_port_partition[validPortIndex] + valid_path_partition[validPathIndex];
+	       group34_assertTrue(testUrl, urlVal.isValid(testUrl));
+	   }
+     	System.out.println(random_fail_counter + " Positive Random Tests FAILED");
+        System.out.println(num_random_tests - random_fail_counter + " Positive Random Tests PASSED");
+        System.out.println("");
+       
+	   // Negative Random Tests
+ 	   System.out.println("BEGINNING Negative Random Tests");
+ 	   fail = false;
+ 	   random_fail_counter = 0;
+ 	   int invalid_partition;
+ 	   for( i = 0; i < num_random_tests; i++)
+ 	   {
+ 		   // Randomly set each partition
+ 		   validSchemeIndex = (int)(Math.random()*20);		
+ 		   validAuthorityIndex = (int)(Math.random()*20);	
+ 		   validPortIndex = (int)(Math.random()*20);	
+ 		   validPathIndex = (int)(Math.random()*20);
+ 		   
+ 		   // Randomly select which of the 4 partitions will be invalid
+ 		   invalid_partition = (int) (Math.random() * 4); // 0:scheme, 1:authority, 2: port, 3: path
+ 		   if(invalid_partition == 0) {
+ 	 		   invalidSchemeIndex = (int)(Math.random()*20);	
+ 			   valid_scheme_partition[validSchemeIndex] = invalid_scheme_partition[invalidSchemeIndex];
+ 		   }
+ 		   if(invalid_partition == 1) {
+ 	 		   invalidAuthorityIndex = (int)(Math.random()*20);
+ 			   valid_authority_partition[validAuthorityIndex] = invalid_authority_partition[invalidAuthorityIndex];
+ 		   }
+ 		   if(invalid_partition == 2) {
+ 	 		   invalidPortIndex = (int)(Math.random()*20);
+ 			   valid_port_partition[validPortIndex] = invalid_port_partition[invalidPortIndex];
+ 		   }
+ 		   if(invalid_partition == 3) {
+ 	 		   invalidPathIndex = (int)(Math.random()*20); 
+ 			   valid_path_partition[validPathIndex] = invalid_path_partition[invalidPathIndex];
+ 		   }
+ 		   // Now, the invalid partition has been RANDOMLY inserted into the URL
+ 		   // We can now build the testUrl
+ 		   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+ 		   String testUrl = valid_scheme_partition[validSchemeIndex] + valid_authority_partition[validAuthorityIndex] + valid_port_partition[validPortIndex] + valid_path_partition[validPathIndex];
+ 	       group34_assertFalse(testUrl, urlVal.isValid(testUrl));
+ 	   }
+       System.out.println(random_fail_counter + " Positive Random Tests FAILED");
+       System.out.println(num_random_tests - random_fail_counter + " Positive Random Tests PASSED");
+       System.out.println("");	     
+   }
+   // *****
+   // END OF GROUP 34 RANDOM TESTING
+   // *****
 
  
    
